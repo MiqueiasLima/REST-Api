@@ -6,8 +6,23 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json);
+
+
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
+
+app.use((req,res,next)=>{
+
+    res.hearder('Access-Control-Allow-Origin','*');
+    res.header(
+        'Access-Control-Allow-Header',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+        
+
+})
+
+
 app.use('/produtos',routerProduto);
 app.use('/pedidos',routerPedidos);
 
